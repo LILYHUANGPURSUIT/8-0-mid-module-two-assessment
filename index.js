@@ -31,7 +31,7 @@ const exampleMovies = require("./movies");
     ];
  */
 function getAllMovieTitles(movies) {
-  if (movies.length === 0) throw "Error occured!"
+  if (movies.length === 0) throw "No information is provided!"
   
   return movies.map(movie => movie.title);
 }
@@ -55,7 +55,7 @@ function getAllMovieTitles(movies) {
  *  //> false
  */
 function checkIfAnyMovieHasRating(movies, rating="G") {
-  if (movies.length === 0) throw "Error occured!"
+  if (movies.length === 0) throw "No information is provided!"
   
   return movies.some(movie => movie.rated === rating);
 }
@@ -77,12 +77,9 @@ function checkIfAnyMovieHasRating(movies, rating="G") {
     };
  */
 function findById(movies, id) {
-  if (movies.length === 0) throw "Error occured!"
+  if (movies.length === 0) throw "No information is provided!"
   
-  let result = movies.find(movie => movie.imdbID === id);
-  
-  if(!result) return null;
-  return result;
+  return movies.find(movie => movie.imdbID === id) || null;
 }
 
 /**
@@ -108,7 +105,7 @@ function findById(movies, id) {
  *  //> []
  */
 function filterByGenre(movies, genre) {
-  if (movies.length === 0) throw "Error occured!"
+  if (movies.length === 0) throw "No information is provided!"
   
   return movies.filter(movie => movie.genre.toLowerCase().includes(genre.toLowerCase()));
 }
@@ -138,11 +135,11 @@ function filterByGenre(movies, genre) {
     ];
  */
 function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
-  if (movies.length === 0) throw "Error occured!"
+  if (movies.length === 0) throw "No information is provided!"
   
   return movies.filter(movie => {
     let releasedYear = movie.released.split(" ");
-    if(releasedYear[2] <= year) return movie;
+    if(+releasedYear[2] <= year) return movie;
   })
 }
 
@@ -171,11 +168,11 @@ function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
     ];
  */
 function getRottenTomatoesScoreByMovie(movies) {
-  if (movies.length === 0) throw "Error occured!"
+  if (movies.length === 0) throw "No information is provided!"
   
   return movies.map(movie => {
-    let foundObj = movie.ratings.find(obj =>obj.source === "Rotten Tomatoes") ; 
-      return {[movie.title] : foundObj.value};
+    foundValue = movie.ratings.find(obj =>obj.source === "Rotten Tomatoes").value ; 
+      return {[movie.title] : foundValue};
   })
 }
 
