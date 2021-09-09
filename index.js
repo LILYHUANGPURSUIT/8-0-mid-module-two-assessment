@@ -30,7 +30,11 @@ const exampleMovies = require("./movies");
       "James and the Giant Peach",
     ];
  */
-function getAllMovieTitles() {}
+function getAllMovieTitles(movies) {
+  if (movies.length === 0) throw "Error occured!"
+  
+  return movies.map(movie => movie.title);
+}
 
 /**
  * checkIfAnyMovieHasRating()
@@ -50,7 +54,11 @@ function getAllMovieTitles() {}
  *  checkIfAnyMovieHasRating(movies, "R");
  *  //> false
  */
-function checkIfAnyMovieHasRating() {}
+function checkIfAnyMovieHasRating(movies, rating="G") {
+  if (movies.length === 0) throw "Error occured!"
+  
+  return movies.some(movie => movie.rated === rating);
+}
 
 /**
  * findById()
@@ -68,7 +76,14 @@ function checkIfAnyMovieHasRating() {}
       // Toy Story 4
     };
  */
-function findById() {}
+function findById(movies, id) {
+  if (movies.length === 0) throw "Error occured!"
+  
+  let result = movies.find(movie => movie.imdbID === id);
+  
+  if(!result) return null;
+  return result;
+}
 
 /**
  * filterByGenre()
@@ -92,7 +107,11 @@ function findById() {}
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
-function filterByGenre() {}
+function filterByGenre(movies, genre) {
+  if (movies.length === 0) throw "Error occured!"
+  
+  return movies.filter(movie => movie.genre.toLowerCase().includes(genre.toLowerCase()));
+}
 
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
@@ -118,7 +137,14 @@ function filterByGenre() {}
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear() {}
+function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
+  if (movies.length === 0) throw "Error occured!"
+  
+  return movies.filter(movie => {
+    let releasedYear = movie.released.split(" ");
+    if(releasedYear[2] <= year) return movie;
+  })
+}
 
 /**
  * getRottenTomatoesScoreByMovie()
@@ -144,7 +170,14 @@ function getAllMoviesReleasedAtOrBeforeYear() {}
       { "James and the Giant Peach": "91%" },
     ];
  */
-function getRottenTomatoesScoreByMovie() {}
+function getRottenTomatoesScoreByMovie(movies) {
+  if (movies.length === 0) throw "Error occured!"
+  
+  return movies.map(movie => {
+    let foundObj = movie.ratings.find(obj =>obj.source === "Rotten Tomatoes") ; 
+      return {[movie.title] : foundObj.value};
+  })
+}
 
 // Do not change anything below this line.
 module.exports = {
